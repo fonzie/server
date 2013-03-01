@@ -16,6 +16,7 @@ migration 'create packages' do
   database.create_table :packages do
     primary_key :id
     String :name, :unique => true, :null => false
+    String :description, :null => false
     String :url, :unique => true, :null => false
     DateTime :created_at
     index :name
