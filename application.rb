@@ -47,7 +47,7 @@ class Package < Sequel::Model
   end
 
   def as_json
-    {:name => name, :url => url}
+    {:name => name, :url => url, :description => description}
   end
 
   def to_json(*)
