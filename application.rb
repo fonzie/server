@@ -24,11 +24,11 @@ migration 'create packages' do
   end
 end
 
-# migration 'add hits' do
-#   database.alter_table :packages do
-#     add_column :hits, Integer, 
-#   end
-# end
+migration 'add author' do
+  database.alter_table :packages do
+    add_column :author, String 
+  end
+end
 
 class Package < Sequel::Model
   def hit!
@@ -42,7 +42,7 @@ class Package < Sequel::Model
   end
 
   def as_json
-    {:name => name, :url => url, :description => description}
+    {:name => name, :url => url, :description => description, :author => author}
   end
 
   def to_json(*)
