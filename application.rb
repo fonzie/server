@@ -17,16 +17,11 @@ migration 'create packages' do
     primary_key :id
     String :name, :unique => true, :null => false
     String :description, :null => false
-    String :url, :unique => true, :null => false
+    String :repo, :unique => true, :null => false
     Integer :hits, :default => 0
+    String :author
     DateTime :created_at
     index :name
-  end
-end
-
-migration 'add author' do
-  database.alter_table :packages do
-    add_column :author, String 
   end
 end
 
@@ -42,7 +37,7 @@ class Package < Sequel::Model
   end
 
   def as_json
-    {:name => name, :url => url, :description => description, :author => author}
+    {:name => name, :repo => repo, :description => description, :author => author}
   end
 
   def to_json(*)
@@ -58,7 +53,9 @@ post '/packages' do
   begin
     Package.create(
       :name => params[:name],
-      :url  => params[:url]
+      :repo  => params[:repo],
+      :description => params[:description],
+      :author => params[:author]
     )
     201
   rescue Sequel::ValidationFailed
