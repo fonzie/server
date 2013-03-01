@@ -16,23 +16,19 @@ migration 'create packages' do
   database.create_table :packages do
     primary_key :id
     String :name, :unique => true, :null => false
+    String :description, :null => false
     String :url, :unique => true, :null => false
+    Integer :hits, :default => 0
     DateTime :created_at
     index :name
   end
 end
 
-migration 'add hits' do
-  database.alter_table :packages do
-    add_column :hits, Integer, :default => 0
-  end
-end
-
-migration 'add description' do
-  database.alter_table :packages do
-    add_column :description, String
-  end
-end
+# migration 'add hits' do
+#   database.alter_table :packages do
+#     add_column :hits, Integer, 
+#   end
+# end
 
 class Package < Sequel::Model
   def hit!
