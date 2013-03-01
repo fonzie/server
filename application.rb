@@ -38,7 +38,7 @@ class Package < Sequel::Model
 
   def validate
     super
-    errors.add(:url, 'is not correct format') if url !~ /^git:\/\//
+    # errors.add(:url, 'is not correct format') if url !~ /^git:\/\//
   end
 
   def as_json
