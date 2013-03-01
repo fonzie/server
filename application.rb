@@ -16,7 +16,6 @@ migration 'create packages' do
   database.create_table :packages do
     primary_key :id
     String :name, :unique => true, :null => false
-    String :description, :null => false
     String :url, :unique => true, :null => false
     DateTime :created_at
     index :name
@@ -31,7 +30,7 @@ end
 
 migration 'add description' do
   database.alter_table :packages do
-    add_column :description, String, :null => false
+    add_column :description, String
   end
 end
 
