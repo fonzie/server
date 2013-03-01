@@ -29,6 +29,12 @@ migration 'add hits' do
   end
 end
 
+migration 'add description' do
+  database.alter_table :packages do
+    add_column :description, String, :null => false
+  end
+end
+
 class Package < Sequel::Model
   def hit!
     self.hits += 1
