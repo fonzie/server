@@ -78,3 +78,9 @@ get '/packages/search/:name' do
   packages = Package.filter(:name.ilike("%#{params[:name]}%")).order(:hits.desc)
   packages.all.to_json
 end
+
+get '/packages/:name/:version/:file' do
+  package  = Package[:name => params[:name]]
+  return 404 unless package
+  redirect "https://raw.github.com/#{package.repo}/#{params[:version]}/#{params[:file]}"
+end
