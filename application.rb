@@ -67,9 +67,7 @@ end
 
 get '/packages/:name' do
   package  = Package[:name => params[:name]]
-
   return 404 unless package
-
   package.hit!
   package.to_json
 end
@@ -79,8 +77,8 @@ get '/packages/search/:name' do
   packages.all.to_json
 end
 
-get '/packages/:name/:version/:file' do
-  package  = Package[:name => params[:name]]
+get '/packages/:user/:project/:version/:file' do
+  package = Package[:repo => "#{params[:user]}/#{params[:project]}"]
   return 404 unless package
   redirect "https://raw.github.com/#{package.repo}/#{params[:version]}/#{params[:file]}"
 end
